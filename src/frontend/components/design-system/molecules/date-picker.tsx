@@ -122,6 +122,10 @@ export type DatePickerProps = {
    * on change callback taking string as a date
    */
   onChange: (date: string) => void;
+  /**
+   * Any custom props to pass down to the ReactDatePicker
+   */
+  [key: string]: any;
 }
 
 const pad = (n: number): string => (n < 10 ? `0${n.toString()}` : n.toString())
