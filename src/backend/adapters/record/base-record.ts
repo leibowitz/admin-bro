@@ -142,11 +142,10 @@ class BaseRecord {
   }
 
   /**
-   * Saves the record in the database. When record already exists - it updates, otherwise
-   * it creates new one.
+   * Creates the record in the database
    *
    * Practically it invokes
-   * {@link BaseResource#create} or {@link BaseResource#update} methods.
+   * {@link BaseResource#create}.
    *
    * When validation error occurs it stores that to {@link BaseResource#errors}
    *
@@ -154,12 +153,7 @@ class BaseRecord {
    */
   async save(): Promise<BaseRecord> {
     try {
-      let returnedParams
-      if (this.id()) {
-        returnedParams = await this.resource.update(this.id(), this.params)
-      } else {
-        returnedParams = await this.resource.create(this.params)
-      }
+      const returnedParams = await this.resource.create(this.params)
       this.storeParams(returnedParams)
     } catch (e) {
       if (e instanceof ValidationError) {
